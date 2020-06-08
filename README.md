@@ -76,6 +76,61 @@ const sheetOptions = {'!merges': [ range ]};
 
 var buffer = xlsx.build([{name: "myFirstSheet", data: dataSheet1}, {name: "mySecondSheet", data: dataSheet2, options: sheetOptions}]); // Returns a buffer
 ```
+
+```js
+    //居中样式
+    const center = {
+      alignment: {
+        vertical: 'center',
+        horizontal: 'center'
+      }
+    };
+    let data = [
+        [{
+          v:  '今日第001单',
+          s: center
+        }]
+    ];
+    data.push([`客户名称：测试111`]);
+    data.push([`订单编号：202020`])
+    data.push([`下单时间：2020-06-08`]);
+    //空行
+    data.push([""])
+    //标题
+    data.push([{ v: `#`, s: center }, "商品名称", "商品数量", "商品规格", "商品价格"]);
+    //行列合并
+    let merges = [
+      { s: { c: 0, r: 0 }, e: { c: 4, r: 0 } },
+      { s: { c: 0, r: 1 }, e: { c: 4, r: 1 } },
+      { s: { c: 0, r: 2 }, e: { c: 4, r: 2 } },
+      { s: { c: 0, r: 3 }, e: { c: 4, r: 3 } },
+      { s: { c: 0, r: 4 }, e: { c: 4, r: 4 } }
+    ];
+    //列宽
+    let cols = [
+      { wpx: 40 },
+      { wpx: 120 },
+      { wpx: 80 },
+      { wpx: 100 },
+      { wpx: 100 },
+    ];
+    //填充数据
+    for (let i = 0; i < goods.length; i++) {
+      const g = goods[i];
+      data.push([
+        { v: (i + 1), s: center },
+        g.name,
+        g.number,
+        g.sku,
+        parseFloat(g.price)
+      ]);
+    }
+    //egg导出
+    this.ctx.attachment("今日第001单.xlsx");
+    this.ctx.set('Content-Type', 'application/octet-stream');
+    this.ctx.body = nodeXlsx.build([{ name: "订单详细", data: data }], { '!merges': merges, '!cols': cols });
+
+```
 _Beware that if you try to merge several times the same cell, your xlsx file will be seen as corrupted._
 
 
