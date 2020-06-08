@@ -1,3 +1,4 @@
+'use strict';
 import XLSX from 'xlsx-style';
 
 const ORIGIN_DATE = new Date(Date.UTC(1899, 11, 30));

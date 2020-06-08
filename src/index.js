@@ -1,3 +1,5 @@
+'use strict';
+
 import XLSX from 'xlsx-style';
 import bufferFrom from 'buffer-from';
 import {buildSheetFromMatrix, isString} from './helpers';
