@@ -12,7 +12,8 @@
     "lint": "NODE_ENV=test eslint src/",
     "compile": "rimraf lib/* && cross-env NODE_ENV=production babel src/ -d lib/ -s",
     "compile:watch": "npm run compile -- -w",
-    "prepublish": "npm run compile"
+    "prepublish": "npm run compile",
+    "postinstall": "npm run compile"
   },
   "repository": "github:mgcrea/node-xlsx",
   "license": "Apache-2.0",
